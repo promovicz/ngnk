@@ -16,4 +16,8 @@ A1(flr,XmMA(eac1f(x,flr))XcC(K("`c$@[!256;65+!26;+;32]",cB(x)))XsS(cS(flr(str(x)
  XdD(Ay=an(xt+tl-td,xn);xe(i(yn,yl=xd<0?(L)xd-(xd<(L)xd):(L)xd)y))et1(x))
 
 #define h(k,f) A1(k,XdD(Ay=xr-1?an(xt,xn):x;i(PD(xn,xD),yd=f(xd));x-y?x(y):y)XmMA(eac1f(x,k))k(N(cD(x))))
-h(ksin,sin)h(kcos,cos)h(klog,log)h(kexp,exp)h(sqr,__builtin_sqrt)
+#if defined(libc)
+h(ksin,sin)h(kcos,cos)h(klog,log)h(kexp,exp)h(sqr,sqrt)
+#else
+h(ksin,__builtin_sin)h(kcos,__builtin_cos)h(klog,__builtin_log)h(kexp,__builtin_exp)h(sqr,__builtin_sqrt)
+#endif
