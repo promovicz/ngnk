@@ -1,0 +1,25 @@
+
+ARG BASE=alpine:latest
+
+FROM ${BASE} AS build
+
+RUN apk add gcc make libc-dev \
+ && rm -rf /var/cache/apk/*
+
+WORKDIR /opt/ngnk
+
+COPY . .
+
+RUN make c \
+ && make k
+
+FROM ${BASE}
+
+RUN apk add dumb-init rlwrap \
+ && rm -rf /var/cache/apk/*
+
+WORKDIR /opt/ngnk
+
+COPY --from=build /opt/ngnk/ /opt/ngnk/
+
+ENTRYPOINT [ "dumb-init", "/opt/ngnk/ki" ]
