@@ -1,4 +1,8 @@
 #!/bin/sh
-E=$(realpath "$0")
-D=$(dirname "${E}")
-"${D}/k" "${D}/repl.k"
+D=$(dirname "$0")
+if [ -t 0 ]; then
+  W='exec rlwrap'
+else
+  W='exec'
+fi
+$W "${D}/k" "${D}/repl.k"
