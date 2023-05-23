@@ -8,8 +8,8 @@ k:k-dflt
 w:k o/w/fs.h o/w/k.wasm o/w/index.html $(patsubst w/x/%.k,o/w/x/%.k,$(wildcard w/x/*.k))
 h:w o/w/http;cd o/w;./http
 
-k-dflt:; $(MAKE) a N=$@ R=k  O='-O3 -march=native -Dlibc'                L='-lm'
-libk.so:;$(MAKE) a N=$@ R=$@ O='-O3 -march=native -Dlibc -fPIC -Dshared' L='-lm -shared'
+k-dflt:; $(MAKE) a N=$@ R=k  O='-g -O3 -march=native -Dlibc'                L='-lm'
+libk.so:;$(MAKE) a N=$@ R=$@ O='-g -O3 -march=native -Dlibc -fPIC -Dshared' L='-lm -shared'
 
 o/$N/%.o:%.c *.h;$M;$(CC) @opts $O -o $@ -c $<
 o/$N/bin:$(patsubst %.c,o/$N/%.o,$(wildcard *.c));$(CC) $O -o $@ $^ @lopts $L # ;$(STRIP) -R .comment $@ -R '.note*'
